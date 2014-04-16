@@ -81,13 +81,12 @@ public abstract class EnigmeAbstractFrame extends FenetreAbstraite implements
         this.cheminsFichiersSon = cheminsFichiersSon;
         this.boutonsReponses = new JButton[nbReponses];
         init();
-        // lireQuestion(title + ":" + question, cheminsFichiersSon);
-        new Thread() {
+        lireQuestion(title + ":" + question, cheminsFichiersSon);
+        /*new Thread() {
             public void run() {
-                voix.playText("BONJOUUUUUUUUUR");
-
+                lireQuestion(title + ":" + question, cheminsFichiersSon);
             }
-        }.start();
+        }.start();*/
     }
 
     @Override
