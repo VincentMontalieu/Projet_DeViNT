@@ -75,6 +75,7 @@ public abstract class MenuAbstrait extends DevintFrameListener implements
      * definir par heritage
      */
     protected abstract String[] nomOptions();
+    protected abstract String wavAccueil();
 
     /**
      * lance l'action associee au bouton nei methode abstraite e definir par
@@ -110,6 +111,8 @@ public abstract class MenuAbstrait extends DevintFrameListener implements
         // a le focus
         this.requestFocus();
         // lit le message d'accueil
+        voix.stop();
+        voix.playWav(wavAccueil());
     }
 
     // -------------------------------------------------------
@@ -211,7 +214,7 @@ public abstract class MenuAbstrait extends DevintFrameListener implements
         // gere par DevintFrameListener
         super.keyPressed(e);
         // enter = selectionner l'option
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             // methode e rendre concrete par heritage
             lancerOption(optionCourante);
         }
@@ -247,10 +250,10 @@ public abstract class MenuAbstrait extends DevintFrameListener implements
         Object source = ae.getSource();
         for (int i = 0; i < nbOption; i++) {
             if (source == boutonOption[i]) {
-                if (optionCourante != -1)
-                    unFocusedButton(optionCourante);
-                optionCourante = i;
-                setFocusedButton(optionCourante);
+//                if (optionCourante != -1)
+//                    unFocusedButton(optionCourante);
+//                optionCourante = i;
+//                setFocusedButton(optionCourante);
                 lancerOption(i);
             }
         }
@@ -258,10 +261,13 @@ public abstract class MenuAbstrait extends DevintFrameListener implements
 
     // mettre le focus sur une option
     private void setFocusedButton(int i) {
-        // voix.playShortText(boutonOption[i].getText());
+        voix.stop();
+        voix.playWav(cheminOptions() + i + ".wav");
         boutonOption[i].setBackground(backgroundColor);
         boutonOption[i].setForeground(foregroundColor);
     }
+
+    protected abstract String cheminOptions();
 
     // enlever le focus d'une option
     private void unFocusedButton(int i) {

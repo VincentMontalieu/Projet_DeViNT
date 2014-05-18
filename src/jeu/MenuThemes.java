@@ -8,13 +8,17 @@
 
 package jeu;
 
-import instruments.Clavier;
-import instruments.InstrumentSelectorFrame;
 import devintAPI.MenuAbstrait;
+import enigme.EnigmeFilms;
+import enigme.EnigmeFilmsManager;
 import enigme.EnigmeInstru;
 import enigme.EnigmeInstruManager;
+import enigme.EnigmeJv;
+import enigme.EnigmeJvManager;
+import enigme.EnigmeMelodies;
+import enigme.EnigmeMelodiesManager;
 
-public class MenuJeu extends MenuAbstrait {
+public class MenuThemes extends MenuAbstrait {
 
     /**
      * constructeur
@@ -22,7 +26,7 @@ public class MenuJeu extends MenuAbstrait {
      * @param title
      *            : le nom du jeu
      */
-    public MenuJeu(String title) {
+    public MenuThemes(String title) {
         super(title);
     }
 
@@ -31,7 +35,8 @@ public class MenuJeu extends MenuAbstrait {
      * que vous voulez
      **/
     protected String[] nomOptions() {
-        String[] noms = { "Jouer", "Règles", "Aide", "Quitter" };
+        String[] noms = { "Instruments de musique", "Musiques de films",
+                "Mélodies célèbres", "Les jeux vidéos" };
         return noms;
     }
 
@@ -42,29 +47,40 @@ public class MenuJeu extends MenuAbstrait {
     protected void lancerOption(int i) {
         switch (i) {
         case 0:
-            new MenuThemes("Thèmes disponibles");
+            EnigmeInstruManager.creerEnigmes();
+            new EnigmeInstru(EnigmeInstruManager.prochaineEnigme(), 0, 1);
             break;
         case 1:
-            voix.stop();
-            voix.playWav(wavRegleJeu());
+            EnigmeFilmsManager.creerEnigmes();
+            new EnigmeFilms(EnigmeFilmsManager.prochaineEnigme(), 0, 1);
             break;
         case 2:
-            voix.stop();
-            voix.playWav(wavAide());
+            EnigmeMelodiesManager.creerEnigmes();
+            new EnigmeMelodies(EnigmeMelodiesManager.prochaineEnigme(), 0, 1);
             break;
         case 3:
-            dispose();
+            EnigmeJvManager.creerEnigmes();
+            new EnigmeJv(EnigmeJvManager.prochaineEnigme(), 0, 1);
             break;
         default:
             System.err.println("action non definie");
-            System.out.println(i);
         }
     }
 
     // renvoie le fichier wave contenant le message d'accueil
     // ces fichiers doivent etre places dans ressources/sons/
     protected String wavAccueil() {
-        return "../ressources/sons/Menus/Jeu/BienvenueDansLaBoiteAMusique.wav";
+        return "../ressources/sons/Menus/Theme/ChoisisUnTheme.wav";
+    }
+
+    // renvoie le fichier wave contenant la regle du jeu
+    protected String wavRegleJeu() {
+        return null;
+    }
+
+    @Override
+    protected String cheminOptions() {
+        return "../ressources/sons/Menus/Theme/";
     }
 
     @Override
@@ -72,13 +88,4 @@ public class MenuJeu extends MenuAbstrait {
         return "../ressources/sons/Aide/PourObtenirDeLAide.wav";
     }
 
-    @Override
-    protected String wavRegleJeu() {
-        return null;
-    }
-
-    @Override
-    protected String cheminOptions() {
-        return "../ressources/sons/Menus/Jeu/";
-    }
 }

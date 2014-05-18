@@ -17,9 +17,9 @@ public abstract class DevintFrameListener extends JFrame implements KeyListener 
 
     protected SIVOXDevint voix;
 
-    protected abstract String wavAccueil();
-
     protected abstract String wavRegleJeu();
+
+    protected abstract String wavAide();
 
     public abstract void changeColor();
 
@@ -43,17 +43,21 @@ public abstract class DevintFrameListener extends JFrame implements KeyListener 
 
     public void keyPressed(KeyEvent e) {
         voix.stop();
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE
+                || e.getKeyCode() == KeyEvent.VK_LEFT) {
             dispose();
         }
-        if (e.getKeyCode() == KeyEvent.VK_F1) {
+
+        if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
             voix.playWav(wavRegleJeu());
         }
-        if (e.getKeyCode() == KeyEvent.VK_F3) {
-            Preferences.getData().changeColor();
+
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+            voix.playWav(wavAide());
         }
-        if (e.getKeyCode() == KeyEvent.VK_F4) {
-            Preferences.getData().changeVoice();
+        
+        if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+            voix.stop();
         }
     }
 

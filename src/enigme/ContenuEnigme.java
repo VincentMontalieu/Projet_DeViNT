@@ -8,16 +8,16 @@ public class ContenuEnigme {
 	private boolean ajouterPoint;
 	private String title;
 	private String question;
-	private String[] cheminsFichiersSon;
+	private String cheminSonQuestion;
 	private int nbReponses;
 	private String[] reponses;
 	private int points;
 
-	public ContenuEnigme(String question, String[] cheminsFichiersSon,
+	public ContenuEnigme(String question, String cheminSonQuestion,
 			int nbReponses, String[] reponses, int bonneReponse) {
 		this.title = "Question numéro ";
 		this.question = question;
-		this.cheminsFichiersSon = cheminsFichiersSon;
+		this.cheminSonQuestion = cheminSonQuestion;
 		this.nbReponses = nbReponses;
 		this.reponses = reponses;
 		this.bonneReponse = bonneReponse;
@@ -39,8 +39,8 @@ public class ContenuEnigme {
 		return question;
 	}
 
-	public String[] getCheminsFichiersSon() {
-		return cheminsFichiersSon;
+	public String getCheminSonQuestion() {
+		return cheminSonQuestion;
 	}
 
 	public int getNbReponses() {

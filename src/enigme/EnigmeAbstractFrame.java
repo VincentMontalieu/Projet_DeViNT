@@ -40,8 +40,8 @@ public abstract class EnigmeAbstractFrame extends FenetreAbstraite implements
     // L'intitule de l'aide
     private String aide;
 
-    // Un tableau contenant les chemins vers les differents sons a jouer
-    private String[] cheminsFichiersSon;
+    // Le chemin vers le son de la question
+    private String cheminSonQuestion;
 
     // Un tableau contenant les intitules des reponses possibles
     private String[] reponses;
@@ -70,23 +70,22 @@ public abstract class EnigmeAbstractFrame extends FenetreAbstraite implements
     // Les JPannel qui vont contenir les JLabel de texte
     private JPanel questionPanel, aidePanel;
 
+    // l'option courante qui est selectionnee
+    private int optionCourante;
+
     public EnigmeAbstractFrame(String title, String question,
-            String[] cheminsFichiersSon, int nbReponses, String[] reponses) {
+            String cheminSonQuestion, int nbReponses, String[] reponses) {
         super(title);
         this.title = title;
         this.question = question;
         this.aide = "Pour réécouter la question, cliquez sur le bouton vert.";
         this.nbReponses = nbReponses;
         this.reponses = reponses;
-        this.cheminsFichiersSon = cheminsFichiersSon;
+        this.cheminSonQuestion = cheminSonQuestion;
         this.boutonsReponses = new JButton[nbReponses];
+        optionCourante = -1;
         init();
-        lireQuestion(title + ":" + question, cheminsFichiersSon);
-        /*new Thread() {
-            public void run() {
-                lireQuestion(title + ":" + question, cheminsFichiersSon);
-            }
-        }.start();*/
+        lireQuestion(cheminSonQuestion);
     }
 
     @Override
@@ -229,55 +228,70 @@ public abstract class EnigmeAbstractFrame extends FenetreAbstraite implements
         setMatteBorder(b, 5, 5, 5, 5, Color.BLACK);
     }
 
-    private void lireQuestion(String txt, String[] cheminsFichiersSon) {
-        voix.playText(txt);
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        lireSonsMultiples(cheminsFichiersSon);
-    }
-
-    private void lireSonsMultiples(String[] cheminsFichiersSon) {
-        for (int i = 0; i < cheminsFichiersSon.length; i++) {
-            voix.stop();
-            voix.playWav(cheminsFichiersSon[i]);
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
+    private void lireQuestion(String cheminSonQuestion) {
+        EnigmeThread lecture = new EnigmeThread("lecture", cheminSonQuestion
+                + "question.wav");
+        lecture.start();
     }
 
     @Override
     protected String wavAide() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void changeColor() {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    protected String wavAccueil() {
-        // TODO Auto-generated method stub
-        return null;
+        return "../ressources/sons/Aide/PourReecouter.wav";
     }
 
     @Override
     protected String wavRegleJeu() {
-        // TODO Auto-generated method stub
-        return null;
+        return "../ressources/sons/Regles/ApresAvoirEcouteLaQuestion.wav";
     }
 
     public void keyPressed(KeyEvent e) {
         super.keyPressed(e);
+
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+            lireQuestion(cheminSonQuestion);
+        }
+
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            reponseJoueur(optionCourante + 1);
+            lancerEnigmeSuivante();
+        }
+        // se deplacer dans les options vers le bas
+        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (optionCourante == -1) {
+                optionCourante = 0;
+                setFocusedButton(optionCourante);
+            } else {
+                unFocusedButton(optionCourante);
+                optionCourante = (optionCourante + 1) % nbReponses;
+                setFocusedButton(optionCourante);
+            }
+        }
+        // se deplacer dans les options vers le haut
+        if (e.getKeyCode() == KeyEvent.VK_UP) {
+            if (optionCourante == -1) {
+                optionCourante = 0;
+                setFocusedButton(optionCourante);
+            } else {
+                unFocusedButton(optionCourante);
+                optionCourante = optionCourante - 1;
+                if (optionCourante == -1)
+                    optionCourante = nbReponses - 1;
+                setFocusedButton(optionCourante);
+            }
+        }
+    }
+
+    // mettre le focus sur une option
+    private void setFocusedButton(int i) {
+        voix.playWav(cheminSonQuestion + optionCourante + ".wav");
+        boutonsReponses[i].setBackground(Color.BLUE);
+        boutonsReponses[i].setForeground(Color.WHITE);
+    }
+
+    // enlever le focus d'une option
+    private void unFocusedButton(int i) {
+        boutonsReponses[i].setBackground(Color.YELLOW);
+        boutonsReponses[i].setForeground(Color.BLACK);
     }
 
     protected abstract void reponseJoueur(int reponseChoisie);
@@ -289,7 +303,7 @@ public abstract class EnigmeAbstractFrame extends FenetreAbstraite implements
         Object source = ae.getSource();
 
         if (source == play) {
-            lireQuestion(question, cheminsFichiersSon);
+            lireQuestion(cheminSonQuestion);
         }
 
         else {

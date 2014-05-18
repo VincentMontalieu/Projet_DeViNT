@@ -9,6 +9,6 @@ package jeu;
 public class LancementJeu {
 
 	public static void main(String args[]) {
-		new jeu.MenuJeu("La Cave aux Instruments");
+		new jeu.MenuJeu("La Boîte à Musique");
 	}
 }

@@ -19,55 +19,39 @@ import java.awt.event.*;
  * 
  */
 public abstract class FenetreAbstraite extends DevintFrameListener implements
-		ActionListener {
+        ActionListener {
 
-	/**
-	 * @param title
-	 *            : titre de la fenetre
-	 */
-	public FenetreAbstraite(String title) {
-		super(title);
-		// methode init e implementer, elle construit ce qui est dans le frame
-		// init();
-		// visible
-		this.setVisible(true);
-		// a le focus
-		this.requestFocus();
-	}
+    /**
+     * @param title
+     *            : titre de la fenetre
+     */
+    public FenetreAbstraite(String title) {
+        super(title);
+        // methode init e implementer, elle construit ce qui est dans le frame
+        // init();
+        // visible
+        this.setVisible(true);
+        // a le focus
+        this.requestFocus();
+    }
 
-	/**
-	 * methode abstraite e implementer pour definir ce qu'il y a dans le Frame
-	 */
-	protected abstract void init();
+    /**
+     * methode abstraite e implementer pour definir ce qu'il y a dans le Frame
+     */
+    protected abstract void init();
 
-	/**
-	 * methode abstraite e implementer
-	 * 
-	 * @return le fichier wav contenant le message d'aide (active par F2)
-	 */
-	protected abstract String wavAide();
+    public void keyPressed(KeyEvent e) {
+        super.keyPressed(e);
+    }
 
-	// ////////////////////////////////////////////
-	// Gestion des evenements clavier
-	// ///////////////////////////////////////////
-	public void keyPressed(KeyEvent e) {
-		// gestion de ESC, F1, F3 et F4 dans la classe mere
-		// (DevintFrameListener)
-		super.keyPressed(e);
-		// on ajoute la gestion de l'aide quand on presse F2
-		if (e.getKeyCode() == KeyEvent.VK_F2) {
-			voix.playWav(wavAide());
-		}
-	}
-
-	/**
-	 * Pour modifier les couleurs de fond et de premier plan de la fenetre Cette
-	 * fonction est appelee par la fonction "changeColor" de la classe
-	 * "Preferences" e chaque fois que l'on presse F3
-	 * 
-	 * Cette methode doit etre reecrite dans les classes filles si cela n'a pas
-	 * de sens pour votre jeu, vous la redefinissez en la laissant vide
-	 **/
-	public abstract void changeColor();
+    /**
+     * Pour modifier les couleurs de fond et de premier plan de la fenetre Cette
+     * fonction est appelee par la fonction "changeColor" de la classe
+     * "Preferences" e chaque fois que l'on presse F3
+     * 
+     * Cette methode doit etre reecrite dans les classes filles si cela n'a pas
+     * de sens pour votre jeu, vous la redefinissez en la laissant vide
+     **/
+    public abstract void changeColor();
 
 }

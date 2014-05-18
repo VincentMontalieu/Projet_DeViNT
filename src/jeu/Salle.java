@@ -5,7 +5,7 @@ import javax.swing.border.LineBorder;
 
 import devintAPI.FenetreAbstraite;
 import devintAPI.Preferences;
-import enigme.Enigme;
+import enigme.EnigmeInstru;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -21,7 +21,7 @@ import java.awt.event.*;
 
 public class Salle extends FenetreAbstraite implements ActionListener{
 
-	private Enigme enigmeA, enigmeB, enigmeC, enigmeD;
+	private EnigmeInstru enigmeA, enigmeB, enigmeC, enigmeD;
 	private boolean unlockA, unlockB, unlockC, unlockD;
 	
 	// le bouton pour la question

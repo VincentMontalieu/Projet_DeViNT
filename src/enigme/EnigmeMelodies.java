@@ -2,24 +2,24 @@ package enigme;
 
 import instruments.InstrumentSelectorFrame;
 
-public class Enigme extends EnigmeAbstractFrame {
+public class EnigmeMelodies extends EnigmeAbstractFrame {
 
     private int bonneReponse;
     private boolean ajouterPoint;
     private String title;
     private String question;
-    private String[] cheminsFichiersSon;
+    private String cheminSonQuestion;
     private int nbReponses;
     private String[] reponses;
     private int points;
     private int numeroQuestion;
 
-    public Enigme(ContenuEnigme e, int points, int numeroQuestion) {
+    public EnigmeMelodies(ContenuEnigme e, int points, int numeroQuestion) {
         super((e.getTitle() + numeroQuestion), e.getQuestion(), e
-                .getCheminsFichiersSon(), e.getNbReponses(), e.getReponses());
+                .getCheminSonQuestion(), e.getNbReponses(), e.getReponses());
         title = e.getTitle();
         question = e.getQuestion();
-        cheminsFichiersSon = e.getCheminsFichiersSon();
+        cheminSonQuestion = e.getCheminSonQuestion();
         nbReponses = e.getNbReponses();
         reponses = e.getReponses();
         ajouterPoint = false;
@@ -60,8 +60,8 @@ public class Enigme extends EnigmeAbstractFrame {
         return question;
     }
 
-    public String[] getCheminsFichiersSon() {
-        return cheminsFichiersSon;
+    public String getCheminSonQuestion() {
+        return cheminSonQuestion;
     }
 
     public int getNbReponses() {
@@ -78,26 +78,33 @@ public class Enigme extends EnigmeAbstractFrame {
 
     @Override
     protected void lancerEnigmeSuivante() {
-        if (EnigmeManager.isProchaineEnigmeNotNull()) {
+        if (EnigmeMelodiesManager.isProchaineEnigmeNotNull()) {
             numeroQuestion++;
             if (ajouterPoint)
-                new Enigme(EnigmeManager.prochaineEnigme(), points + 1,
-                        numeroQuestion);
+                new EnigmeMelodies(EnigmeMelodiesManager.prochaineEnigme(),
+                        points + 1, numeroQuestion);
             else
-                new Enigme(EnigmeManager.prochaineEnigme(), points,
-                        numeroQuestion);
+                new EnigmeMelodies(EnigmeMelodiesManager.prochaineEnigme(),
+                        points, numeroQuestion);
             dispose();
         }
 
         else if (ajouterPoint) {
             new InstrumentSelectorFrame(points + 1,
-                    EnigmeManager.nbEnigmesTotales);
+                    EnigmeMelodiesManager.nbEnigmesTotales);
             dispose();
         }
 
         else {
-            new InstrumentSelectorFrame(points, EnigmeManager.nbEnigmesTotales);
+            new InstrumentSelectorFrame(points,
+                    EnigmeMelodiesManager.nbEnigmesTotales);
             dispose();
         }
+    }
+
+    @Override
+    public void changeColor() {
+        // TODO Auto-generated method stub
+
     }
 }

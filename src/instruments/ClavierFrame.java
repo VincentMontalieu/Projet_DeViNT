@@ -134,49 +134,27 @@ public abstract class ClavierFrame extends FenetreAbstraite implements
 
     @Override
     protected String wavAide() {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public void changeColor() {
-        // TODO Auto-generated method stub
 
-    }
-
-    @Override
-    protected String wavAccueil() {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     @Override
     protected String wavRegleJeu() {
-        // TODO Auto-generated method stub
-        return null;
+        return "../ressources/sons/Regles/ConsigneModeInstrument.wav";
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
+        super.keyPressed(e);
+
         if (e.getKeyCode() == KeyEvent.VK_S) {
             clavier.do1 = Color.GREEN;
             voix.stop();
             voix.playWav(chemin + "0.wav");
-        }
-
-        else if (e.getKeyCode() == KeyEvent.VK_1) {
-            voix.stop();
-            voix.playWav("../ressources/sons/boule/ouvre.wav");
-        }
-
-        else if (e.getKeyCode() == KeyEvent.VK_2) {
-            voix.stop();
-            voix.playWav("../ressources/sons/boule/ferme.wav");
-        }
-
-        else if (e.getKeyCode() == KeyEvent.VK_3) {
-            voix.stop();
-            voix.playWav("../ressources/sons/boule/boule_magique.wav");
         }
 
         else if (e.getKeyCode() == KeyEvent.VK_E) {
@@ -249,10 +227,6 @@ public abstract class ClavierFrame extends FenetreAbstraite implements
             clavier.do2 = Color.GREEN;
             voix.stop();
             voix.playWav(chemin + "12.wav");
-        }
-
-        else if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            voix.stop();
         }
 
         repaint();

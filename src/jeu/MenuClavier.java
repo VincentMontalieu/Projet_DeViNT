@@ -28,8 +28,8 @@ public class MenuClavier extends MenuAbstrait {
      * que vous voulez
      **/
     protected String[] nomOptions() {
-        String[] noms = { "Aucun", "Flûte", "Guitare", "Trompette", "Piano",
-                "Synthétiseur" };
+        String[] noms = { "Aucun", "Basse", "Guitare", "Trompette", "Piano",
+                "Batterie" };
         return noms;
     }
 
@@ -65,12 +65,23 @@ public class MenuClavier extends MenuAbstrait {
     // renvoie le fichier wave contenant le message d'accueil
     // ces fichiers doivent etre places dans ressources/sons/
     protected String wavAccueil() {
-        return "../ressources/sons/accueil.wav";
+        return null;
     }
 
     // renvoie le fichier wave contenant la regle du jeu
     protected String wavRegleJeu() {
-        return "../ressources/sons/accueil.wav";
+        return null;
     }
 
+    @Override
+    protected String cheminOptions() {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    protected String wavAide() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

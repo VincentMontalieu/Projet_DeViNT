@@ -40,8 +40,8 @@ public class InstrumentSelectorFrame extends FenetreAbstraite implements
     private int nbInstruments;
 
     // Un tableau contenant les instruments
-    private static final String[] instruments = { "Flûte", "Guitare",
-            "Trompette", "Piano", "Synthétiseur" };
+    private static final String[] instruments = { "Basse", "Guitare",
+            "Trompette", "Piano", "Batterie" };
 
     // Un tableau contenant les instruments disponibles
     private boolean[] instrumentsDisponibles;
@@ -60,8 +60,8 @@ public class InstrumentSelectorFrame extends FenetreAbstraite implements
 
     public InstrumentSelectorFrame(int points, int questions) {
         super(title);
-        this.choix = instrumentSelector(points, questions);
         this.score = "SCORE : " + points + "/" + questions;
+        this.choix = instrumentSelector(points, questions);
         this.nbInstruments = instruments.length;
         this.points = points;
 
@@ -138,20 +138,20 @@ public class InstrumentSelectorFrame extends FenetreAbstraite implements
         // Bordures et couleur de la zone texte
         setEmptyBorder(labelTexte, 10, 20, 10, 10);
         // setMatteBorder(textePanel, 0, 0, 1, 0, Color.BLACK);
-        setComponentBackground(labelTexte, Color.PINK);
-        setComponentForeground(labelTexte, Color.GRAY);
+        setComponentBackground(labelTexte, Color.WHITE);
+        setComponentForeground(labelTexte, Color.BLACK);
         // Pour redimensionner la zone de texte
         // textePanel.setPreferredSize(new Dimension(getScreenWidth(), 100));
 
         // Bordures et couleur de la zone instruments
         setEmptyBorder(instrumentsPanel, 10, 100, 10, 100);
-        setComponentBackground(instrumentsPanel, Color.PINK);
+        setComponentBackground(instrumentsPanel, Color.WHITE);
 
         // Bordures et couleur de la zone score
         setEmptyBorder(labelScore, 10, 20, 10, 10);
         // setMatteBorder(scorePanel, 1, 0, 0, 0, Color.BLACK);
-        setComponentBackground(labelScore, Color.PINK);
-        setComponentForeground(labelScore, Color.GRAY);
+        setComponentBackground(labelScore, Color.WHITE);
+        setComponentForeground(labelScore, Color.BLACK);
         // Pour redimensionner la zone de texte
         // textePanel.setPreferredSize(new Dimension(getScreenWidth(), 50));
 
@@ -235,32 +235,19 @@ public class InstrumentSelectorFrame extends FenetreAbstraite implements
     }
 
     @Override
-    protected String wavAccueil() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     protected String wavRegleJeu() {
         // TODO Auto-generated method stub
         return null;
     }
 
-    private int instrumentSelector(int points, int questions) {
-        int m = instruments.length;
-        int pos = (questions + 1) / m;
-        int instrument = 0;
-
-        for (int i = 0; i <= questions + 1; i = i + pos) {
-            if (i <= points && points <= i + pos)
-                break;
-            else
-                instrument++;
-        }
-        if (points != 0) {
-            return instrument;
-        } else {
+    private int instrumentSelector(int points, int nbQuestions) {
+        if (points == 0) {
             return -1;
+        } else if (points == 1) {
+            return 0;
+        } else {
+            return (int) Math
+                    .floor((points * instruments.length) / nbQuestions) - 1;
         }
     }
 
