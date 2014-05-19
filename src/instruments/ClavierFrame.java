@@ -134,7 +134,7 @@ public abstract class ClavierFrame extends FenetreAbstraite implements
 
     @Override
     protected String wavAide() {
-        return null;
+        return "../ressources/sons/Aide/ToucheMajuscule.wav";
     }
 
     @Override

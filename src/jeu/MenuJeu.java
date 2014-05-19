@@ -74,7 +74,7 @@ public class MenuJeu extends MenuAbstrait {
 
     @Override
     protected String wavRegleJeu() {
-        return null;
+        return "../ressources/sons/Regles/TuDoisRepondreAUneSerieDeQuestions.wav";
     }
 
     @Override

@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -58,12 +59,17 @@ public class InstrumentSelectorFrame extends FenetreAbstraite implements
     // Les JPannel qui vont contenir les JLabel de texte
     private JPanel textePanel, scorePanel;
 
+    // l'option courante qui est selectionnee
+    private int optionCourante;
+
     public InstrumentSelectorFrame(int points, int questions) {
         super(title);
         this.score = "SCORE : " + points + "/" + questions;
         this.choix = instrumentSelector(points, questions);
         this.nbInstruments = instruments.length;
         this.points = points;
+        optionCourante = -1;
+        voix.playWav(wavRegleJeu());
 
         switch (choix) {
         case -1:
@@ -224,20 +230,12 @@ public class InstrumentSelectorFrame extends FenetreAbstraite implements
 
     @Override
     protected String wavAide() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void changeColor() {
-        // TODO Auto-generated method stub
-
+        return "../ressources/sons/Aide/touches.wav";
     }
 
     @Override
     protected String wavRegleJeu() {
-        // TODO Auto-generated method stub
-        return null;
+        return "../ressources/sons/Regles/TuAsDebloqueLesInstruments.wav";
     }
 
     private int instrumentSelector(int points, int nbQuestions) {
@@ -260,5 +258,56 @@ public class InstrumentSelectorFrame extends FenetreAbstraite implements
                 new Clavier(i, points, questions);
             }
         }
+    }
+
+    public void keyPressed(KeyEvent e) {
+        super.keyPressed(e);
+
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+            new Clavier(optionCourante, points, questions);
+        }
+        // se deplacer dans les options vers le bas
+        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+            if (optionCourante == -1) {
+                optionCourante = 0;
+                setFocusedButton(optionCourante);
+            } else {
+                unFocusedButton(optionCourante);
+                optionCourante = (optionCourante + 1) % (choix + 1);
+                setFocusedButton(optionCourante);
+            }
+        }
+        // se deplacer dans les options vers le haut
+        if (e.getKeyCode() == KeyEvent.VK_UP) {
+            if (optionCourante == -1) {
+                optionCourante = 0;
+                setFocusedButton(optionCourante);
+            } else {
+                unFocusedButton(optionCourante);
+                optionCourante = optionCourante - 1;
+                if (optionCourante == -1)
+                    optionCourante = choix;
+                setFocusedButton(optionCourante);
+            }
+        }
+    }
+
+    // mettre le focus sur une option
+    private void setFocusedButton(int i) {
+        voix.playWav("../ressources/sons/instruments/clavier/" + i + ".wav");
+        boutonsInstruments[i].setBackground(Color.BLUE);
+        boutonsInstruments[i].setForeground(Color.WHITE);
+    }
+
+    // enlever le focus d'une option
+    private void unFocusedButton(int i) {
+        boutonsInstruments[i].setBackground(Color.GREEN);
+        boutonsInstruments[i].setForeground(Color.BLACK);
+    }
+
+    @Override
+    public void changeColor() {
+        // TODO Auto-generated method stub
+
     }
 }
