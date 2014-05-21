@@ -263,7 +263,7 @@ public class InstrumentSelectorFrame extends FenetreAbstraite implements
     public void keyPressed(KeyEvent e) {
         super.keyPressed(e);
 
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             new Clavier(optionCourante, points, questions);
         }
         // se deplacer dans les options vers le bas

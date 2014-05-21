@@ -75,6 +75,7 @@ public abstract class MenuAbstrait extends DevintFrameListener implements
      * definir par heritage
      */
     protected abstract String[] nomOptions();
+
     protected abstract String wavAccueil();
 
     /**
@@ -214,12 +215,13 @@ public abstract class MenuAbstrait extends DevintFrameListener implements
         // gere par DevintFrameListener
         super.keyPressed(e);
         // enter = selectionner l'option
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             // methode e rendre concrete par heritage
             lancerOption(optionCourante);
         }
         // se deplacer dans les options vers le bas
-        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+        if (e.getKeyCode() == KeyEvent.VK_DOWN
+                || e.getKeyCode() == KeyEvent.VK_RIGHT) {
             if (optionCourante == -1) {
                 optionCourante = 0;
                 setFocusedButton(optionCourante);
@@ -230,7 +232,8 @@ public abstract class MenuAbstrait extends DevintFrameListener implements
             }
         }
         // se deplacer dans les options vers le haut
-        if (e.getKeyCode() == KeyEvent.VK_UP) {
+        if (e.getKeyCode() == KeyEvent.VK_UP
+                || e.getKeyCode() == KeyEvent.VK_LEFT) {
             if (optionCourante == -1) {
                 optionCourante = 0;
                 setFocusedButton(optionCourante);
@@ -250,10 +253,10 @@ public abstract class MenuAbstrait extends DevintFrameListener implements
         Object source = ae.getSource();
         for (int i = 0; i < nbOption; i++) {
             if (source == boutonOption[i]) {
-//                if (optionCourante != -1)
-//                    unFocusedButton(optionCourante);
-//                optionCourante = i;
-//                setFocusedButton(optionCourante);
+                // if (optionCourante != -1)
+                // unFocusedButton(optionCourante);
+                // optionCourante = i;
+                // setFocusedButton(optionCourante);
                 lancerOption(i);
             }
         }

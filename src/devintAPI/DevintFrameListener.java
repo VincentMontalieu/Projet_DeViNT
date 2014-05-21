@@ -43,19 +43,18 @@ public abstract class DevintFrameListener extends JFrame implements KeyListener 
 
     public void keyPressed(KeyEvent e) {
         voix.stop();
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE
-                || e.getKeyCode() == KeyEvent.VK_LEFT) {
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             dispose();
         }
 
-        if (e.getKeyCode() == KeyEvent.VK_CONTROL) {
+        if (e.getKeyCode() == KeyEvent.VK_F1) {
             voix.playWav(wavRegleJeu());
         }
 
-        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+        if (e.getKeyCode() == KeyEvent.VK_F2) {
             voix.playWav(wavAide());
         }
-        
+
         if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
             voix.stop();
         }

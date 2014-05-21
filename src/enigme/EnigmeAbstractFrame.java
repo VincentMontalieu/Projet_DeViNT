@@ -247,16 +247,17 @@ public abstract class EnigmeAbstractFrame extends FenetreAbstraite implements
     public void keyPressed(KeyEvent e) {
         super.keyPressed(e);
 
-        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
             lireQuestion(cheminSonQuestion);
         }
 
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+        if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             reponseJoueur(optionCourante + 1);
             lancerEnigmeSuivante();
         }
         // se deplacer dans les options vers le bas
-        if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+        if (e.getKeyCode() == KeyEvent.VK_DOWN
+                || e.getKeyCode() == KeyEvent.VK_RIGHT) {
             if (optionCourante == -1) {
                 optionCourante = 0;
                 setFocusedButton(optionCourante);
@@ -267,7 +268,8 @@ public abstract class EnigmeAbstractFrame extends FenetreAbstraite implements
             }
         }
         // se deplacer dans les options vers le haut
-        if (e.getKeyCode() == KeyEvent.VK_UP) {
+        if (e.getKeyCode() == KeyEvent.VK_UP
+                || e.getKeyCode() == KeyEvent.VK_LEFT) {
             if (optionCourante == -1) {
                 optionCourante = 0;
                 setFocusedButton(optionCourante);
