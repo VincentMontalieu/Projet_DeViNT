@@ -28,8 +28,8 @@ public class EnigmeInstruManager {
                 chemin + "3/", 4, reponses3, 1));
 
         // Enigme #4
-        String reponses4[] = { "Le premier", "Le deuxieme", "Le troisieme",
-                "Le quatrieme" };
+        String reponses4[] = { "Le premier", "Le deuxième", "Le troisième",
+                "Le quatrième" };
         listeDesEnigmes.add(new ContenuEnigme(
                 "Quel instrument est la mandoline ?", chemin + "4/", 4,
                 reponses4, 3));

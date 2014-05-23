@@ -65,6 +65,7 @@ public abstract class ClavierFrame extends FenetreAbstraite implements
         this.points = points;
         this.questions = questions;
         this.instru = instru + 1;
+		voix.playWav(wavRegleJeu());
         init();
     }
 
